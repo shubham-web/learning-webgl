@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Container from "../../../components/common/Container";
 import WebGLCanvas from "../../../components/common/WebGLCanvas";
-import { Fragement, Vertext } from "./shaders";
 
 const TheFirstTriangle: NextPage = () => {
 	return (
@@ -10,6 +9,19 @@ const TheFirstTriangle: NextPage = () => {
 		</Container>
 	);
 };
+
+const Vertext = `
+    attribute vec3 position;
+    void main() {
+        gl_Position = vec4(position, 1);
+    }
+`;
+
+const Fragement = `
+    void main() {
+        gl_FragColor = vec4(1, 0, 0, 1);
+    }
+`;
 
 const drawTriangle = (gl: WebGLRenderingContext) => {
 	// prettier-ignore
