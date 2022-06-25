@@ -10,6 +10,7 @@ const TheFirstTriangle: NextPage = () => {
 	);
 };
 
+// Shaders
 const Vertext = `
     attribute vec3 position;
     void main() {
@@ -36,16 +37,17 @@ const drawTriangle = (gl: WebGLRenderingContext) => {
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertextData), gl.STATIC_DRAW);
 
 	const vertextShader = gl.createShader(gl.VERTEX_SHADER);
-	vertextShader && gl.shaderSource(vertextShader, Vertext);
+	if (!vertextShader) {
+		throw new Error("Couldn't Create Vertext Shader.");
+	}
+	gl.shaderSource(vertextShader, Vertext);
+	gl.compileShader(vertextShader);
 
 	const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-	fragmentShader && gl.shaderSource(fragmentShader, Fragement);
-
-	if (!(fragmentShader && vertextShader)) {
-		throw new Error("Couldn't create shader.");
+	if (!fragmentShader) {
+		throw new Error("Couldn't Create Fragement Shader.");
 	}
-
-	gl.compileShader(vertextShader);
+	gl.shaderSource(fragmentShader, Fragement);
 	gl.compileShader(fragmentShader);
 
 	const program = gl.createProgram();
