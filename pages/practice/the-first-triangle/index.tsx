@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Container from "../../../components/common/Container";
 import WebGLCanvas from "../../../components/common/WebGLCanvas";
-import { createShader } from "../../../utils/webgl";
+import { createProgram, createShader } from "../../../utils/webgl";
 
 const TheFirstTriangle: NextPage = () => {
 	return (
@@ -12,7 +12,7 @@ const TheFirstTriangle: NextPage = () => {
 };
 
 // Shaders
-const Vertext = `
+const Vertex = `
     attribute vec3 position;
     void main() {
         gl_Position = vec4(position, 1);
@@ -27,7 +27,7 @@ const Fragement = `
 
 const drawTriangle = (gl: WebGLRenderingContext) => {
 	// prettier-ignore
-	const vertextData = [
+	const vertexData = [
 		0, 1, 0,
 		1, -1, 0,
 		-1, -1, 0,
@@ -35,20 +35,12 @@ const drawTriangle = (gl: WebGLRenderingContext) => {
 
 	const buffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertextData), gl.STATIC_DRAW);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexData), gl.STATIC_DRAW);
 
-	const vertextShader = createShader(gl, "VERTEX_SHADER", Vertext);
+	const vertexShader = createShader(gl, "VERTEX_SHADER", Vertex);
 	const fragmentShader = createShader(gl, "FRAGMENT_SHADER", Fragement);
 
-	const program = gl.createProgram();
-
-	if (!program) {
-		throw new Error("Couldn't create gl program.");
-	}
-
-	gl.attachShader(program, vertextShader);
-	gl.attachShader(program, fragmentShader);
-	gl.linkProgram(program);
+	const program = createProgram(gl, vertexShader, fragmentShader);
 
 	const positionLocation = gl.getAttribLocation(program, "position");
 	gl.enableVertexAttribArray(positionLocation);
