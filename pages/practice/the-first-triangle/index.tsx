@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Container from "../../../components/common/Container";
 import WebGLCanvas from "../../../components/common/WebGLCanvas";
+import { createShader } from "../../../utils/webgl";
 
 const TheFirstTriangle: NextPage = () => {
 	return (
@@ -20,7 +21,7 @@ const Vertext = `
 
 const Fragement = `
     void main() {
-        gl_FragColor = vec4(1, 0, 0, 1);
+        gl_FragColor = vec4(1, 0, 0.5, 1);
     }
 `;
 
@@ -36,19 +37,8 @@ const drawTriangle = (gl: WebGLRenderingContext) => {
 	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertextData), gl.STATIC_DRAW);
 
-	const vertextShader = gl.createShader(gl.VERTEX_SHADER);
-	if (!vertextShader) {
-		throw new Error("Couldn't Create Vertext Shader.");
-	}
-	gl.shaderSource(vertextShader, Vertext);
-	gl.compileShader(vertextShader);
-
-	const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-	if (!fragmentShader) {
-		throw new Error("Couldn't Create Fragement Shader.");
-	}
-	gl.shaderSource(fragmentShader, Fragement);
-	gl.compileShader(fragmentShader);
+	const vertextShader = createShader(gl, "VERTEX_SHADER", Vertext);
+	const fragmentShader = createShader(gl, "FRAGMENT_SHADER", Fragement);
 
 	const program = gl.createProgram();
 
