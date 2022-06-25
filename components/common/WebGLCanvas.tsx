@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { getWebGLContext } from "../../utils/webgl";
 
 interface Props {
-	width: number;
-	height: number;
+	fixedDimension?: { width: number; height: number };
 	onInit: (context: WebGLRenderingContext) => void;
 }
 
@@ -26,8 +25,15 @@ const WebGLCanvas = (props: Props) => {
 	}
 
 	return (
-		<Wrapper>
-			<canvas width={props.width} height={props.height} ref={canvas}></canvas>
+		<Wrapper
+			style={
+				props.fixedDimension && {
+					width: `${props.fixedDimension.width}px`,
+					height: `${props.fixedDimension.height}px`,
+				}
+			}
+		>
+			<canvas ref={canvas}></canvas>
 		</Wrapper>
 	);
 };
@@ -35,6 +41,8 @@ const WebGLCanvas = (props: Props) => {
 const Wrapper = styled.div`
 	display: flex;
 	& canvas {
+		width: 100%;
+		height: 100%;
 		border: 2px solid green;
 	}
 `;

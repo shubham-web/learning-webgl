@@ -47,3 +47,16 @@ export const createProgram: CreateProgram = (gl, vertexShader, fragmentShader) =
 	gl.deleteProgram(program);
 	throw new Error(`Couldn't Link GL Program, ${error}`);
 };
+
+export const resizeCanvasToDisplaySize = (canvas: HTMLCanvasElement, multiplier?: number) => {
+	// Source: https://github.com/gfxfundamentals/webgl-fundamentals/blob/2cba2e393dcf6d307920b99ecd66b250503c5ef0/webgl/resources/webgl-utils.js#L786
+	multiplier = multiplier || 1;
+	const width = (canvas.clientWidth * multiplier) | 0;
+	const height = (canvas.clientHeight * multiplier) | 0;
+	if (canvas.width !== width || canvas.height !== height) {
+		canvas.width = width;
+		canvas.height = height;
+		return true;
+	}
+	return false;
+};

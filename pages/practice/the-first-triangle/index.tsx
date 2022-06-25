@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import Container from "../../../components/common/Container";
 import WebGLCanvas from "../../../components/common/WebGLCanvas";
-import { createProgram, createShader } from "../../../utils/webgl";
+import { createProgram, createShader, resizeCanvasToDisplaySize } from "../../../utils/webgl";
 
 const TheFirstTriangle: NextPage = () => {
 	return (
 		<Container padded>
-			<WebGLCanvas onInit={drawTriangle} width={500} height={500}></WebGLCanvas>
+			<WebGLCanvas onInit={drawTriangle}></WebGLCanvas>
 		</Container>
 	);
 };
@@ -26,6 +26,9 @@ const Fragement = `
 `;
 
 const drawTriangle = (gl: WebGLRenderingContext) => {
+	resizeCanvasToDisplaySize(gl.canvas, window.devicePixelRatio);
+	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
 	// prettier-ignore
 	const vertexData = [
 		0, 1, 0,
