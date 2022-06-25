@@ -4,7 +4,7 @@ import { getWebGLContext } from "../../utils/webgl";
 
 interface Props {
 	fixedDimension?: { width: number; height: number };
-	onInit: (context: WebGLRenderingContext) => void;
+	onInit: WebGLCanvasInit;
 }
 
 const WebGLCanvas = (props: Props) => {

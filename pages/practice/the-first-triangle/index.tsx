@@ -25,7 +25,7 @@ const Fragement = `
     }
 `;
 
-const drawTriangle = (gl: WebGLRenderingContext) => {
+const drawTriangle: WebGLCanvasInit = (gl) => {
 	resizeCanvasToDisplaySize(gl.canvas, window.devicePixelRatio);
 	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 

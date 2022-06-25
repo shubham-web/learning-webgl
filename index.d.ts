@@ -20,3 +20,5 @@ type CreateProgram = (
 ) => WebGLProgram;
 
 type PracticeItems = Array<PracticeItem>;
+
+type WebGLCanvasInit = (context: WebGLRenderingContext) => void;
