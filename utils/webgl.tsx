@@ -1,5 +1,5 @@
 // webgl specific helper functions
-export const getWebGLContext = (canvas: HTMLCanvasElement | null | undefined): WebGLRenderingContext | null => {
+export const getWebGLContext: GetWebGlContext = (canvas) => {
 	if (!canvas) {
 		return null;
 	}
@@ -10,11 +10,7 @@ export const getWebGLContext = (canvas: HTMLCanvasElement | null | undefined): W
 	return context;
 };
 
-export const createShader = (
-	gl: WebGLRenderingContext,
-	type: "VERTEX_SHADER" | "FRAGMENT_SHADER",
-	source: string
-): WebGLShader => {
+export const createShader: CreateShader = (gl, type, source) => {
 	const shader = gl.createShader(gl[type]);
 	if (!shader) {
 		throw new Error(`Couldn't Create ${type}.`);
@@ -32,11 +28,7 @@ export const createShader = (
 	throw new Error(`Couldn't compile ${type} "${error}"`);
 };
 
-export const createProgram = (
-	gl: WebGLRenderingContext,
-	vertexShader: WebGLShader,
-	fragmentShader: WebGLShader
-): WebGLProgram => {
+export const createProgram: CreateProgram = (gl, vertexShader, fragmentShader) => {
 	const program = gl.createProgram();
 	if (!program) {
 		throw new Error("Couldn't create gl program.");
