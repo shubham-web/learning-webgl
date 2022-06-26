@@ -29,4 +29,5 @@ const practiceItems: PracticeItems = [
 	},
 ];
 
+practiceItems.reverse();
 export default practiceItems;
