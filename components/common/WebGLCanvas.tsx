@@ -43,7 +43,7 @@ const Wrapper = styled.div`
 	& canvas {
 		width: 100%;
 		height: 100%;
-		border: 2px solid green;
+		border: 1px dashed black;
 	}
 `;
 const ErrorMessage = styled.div`
