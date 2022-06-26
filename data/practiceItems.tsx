@@ -20,6 +20,13 @@ const practiceItems: PracticeItems = [
 		preview: "50-random-rects.png",
 		date: "26-06-2022",
 	},
+	{
+		// from: https://webglfundamentals.org/webgl/lessons/webgl-image-processing.html
+		folder: "the-first-image-render",
+		label: "The First Image Render",
+		preview: "the-first-image-render.jpg",
+		date: "26-06-2022",
+	},
 ];
 
 export default practiceItems;
