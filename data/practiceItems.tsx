@@ -34,6 +34,13 @@ const practiceItems: PracticeItems = [
 		preview: "average-image-pixels.mp4",
 		date: "27-06-2022-14-12",
 	},
+	{
+		// from: https://webglfundamentals.org/webgl/lessons/webgl-image-processing.html
+		folder: "convolution-matrix",
+		label: "Filters Using Convolution Matrix",
+		preview: "convolution-matrix.mp4",
+		date: "27-06-2022-23-07",
+	},
 ];
 
 practiceItems.reverse();
