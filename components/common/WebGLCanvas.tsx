@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { getWebGLContext } from "../../utils/webgl";
 
@@ -7,18 +7,18 @@ interface Props {
 	onInit: WebGLCanvasInit;
 }
 
-const WebGLCanvas = (props: Props) => {
+const WebGLCanvas = ({ onInit, fixedDimension }: Props) => {
 	const canvas = useRef<HTMLCanvasElement>(null);
 	const [errorMessage, setErrorMessage] = useState("");
 
 	useEffect(() => {
 		try {
 			const context = getWebGLContext(canvas.current);
-			context && props.onInit(context);
+			context && onInit(context);
 		} catch (err) {
 			err instanceof Error && setErrorMessage(err.message);
 		}
-	}, [props]);
+	}, [onInit]);
 
 	if (errorMessage) {
 		return <ErrorMessage>Error: {errorMessage}</ErrorMessage>;
@@ -27,9 +27,9 @@ const WebGLCanvas = (props: Props) => {
 	return (
 		<Wrapper
 			style={
-				props.fixedDimension && {
-					width: `${props.fixedDimension.width}px`,
-					height: `${props.fixedDimension.height}px`,
+				fixedDimension && {
+					width: `${fixedDimension.width}px`,
+					height: `${fixedDimension.height}px`,
 				}
 			}
 		>
@@ -43,7 +43,6 @@ const Wrapper = styled.div`
 	& canvas {
 		width: 100%;
 		height: 100%;
-		border: 2px dashed red;
 		background: white;
 	}
 `;

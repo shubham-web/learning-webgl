@@ -1,4 +1,4 @@
-type PracticeDate = `${number}-${number}-${number}`;
+type PracticeDate = `${number}-${number}-${number}-${hours}-${minutes}`;
 interface PracticeItem {
 	folder: string;
 	label: string;
@@ -22,3 +22,19 @@ type CreateProgram = (
 type PracticeItems = Array<PracticeItem>;
 
 type WebGLCanvasInit = (context: WebGLRenderingContext) => void;
+
+interface WebGLProgramInitData {
+	gl: WebGLRenderingContext;
+	program: WebGLProgram;
+	attr: { [key: string]: number };
+	uniform: { [key: string]: WebGLUniformLocation | null };
+	buffer: {
+		[key: string]: WebGLBuffer | null;
+	};
+	texture?: {
+		[key: string]: HTMLImageElement;
+	};
+	customInputs?: {
+		[key: string]: any;
+	};
+}

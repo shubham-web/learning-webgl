@@ -7,9 +7,10 @@ interface Props {
 	vCenter?: boolean;
 	gap: string;
 	children: ReactNode;
+	stacked?: boolean;
 }
-const Flex: React.FC<Props> = ({ center, hCenter, vCenter, gap, children }) => {
-	return <FlexContainer {...{ center, hCenter, vCenter, gap }}>{children}</FlexContainer>;
+const Flex: React.FC<Props> = ({ center, hCenter, vCenter, gap, stacked, children }) => {
+	return <FlexContainer {...{ center, hCenter, vCenter, gap, stacked }}>{children}</FlexContainer>;
 };
 
 const FlexContainer = styled.div<Props>`
@@ -17,6 +18,7 @@ const FlexContainer = styled.div<Props>`
 	gap: ${(props) => props.gap};
 	justify-content: ${(props) => (props.center || props.hCenter ? "center" : "flex-start")};
 	align-items: ${(props) => (props.center || props.vCenter ? "center" : "flex-start")};
+	flex-direction: ${(props) => (props.stacked ? "column" : "row")};
 `;
 
 export default Flex;

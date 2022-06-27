@@ -29,11 +29,22 @@ const Home: NextPage = () => {
 							<Card key={item.folder}>
 								{item.preview && (
 									<Preview>
-										<NextImage
-											src={"/images/practice-items-preview/".concat(item.preview)}
-											width={285}
-											height={285}
-										/>
+										{item.preview.endsWith("mp4") ? (
+											<video
+												muted
+												loop
+												autoPlay
+												width={285}
+												height={285}
+												src={"/practice-items-preview/".concat(item.preview)}
+											></video>
+										) : (
+											<NextImage
+												src={"/practice-items-preview/".concat(item.preview)}
+												width={285}
+												height={285}
+											/>
+										)}
 									</Preview>
 								)}
 								<NextLink href={`/practice/${item.folder}`} passHref>
