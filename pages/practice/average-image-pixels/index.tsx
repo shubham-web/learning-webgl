@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useCallback, useRef, useState } from "react";
+import { ChangeEventHandler, useCallback, useRef, useState } from "react";
 import Container from "../../../components/common/Container";
 import Flex from "../../../components/common/Flex";
 import P from "../../../components/common/P";
@@ -12,6 +12,8 @@ import ZeroLineHeight from "../../../components/common/ZeroLineHeight";
 
 const DEFAULT_AVERAGE_PIXEL = 0;
 const images = ["oranges.jpg", "lal-gate-dewas.jpg", "i-and-rohit.jpg", "school.jpg"];
+const IMAGE_WIDTH = 600;
+const IMAGE_HEIGHT = 600;
 
 const AverageImagePixels: NextPage = () => {
 	const [averagePixels, setAveragePixel] = useState(DEFAULT_AVERAGE_PIXEL);
@@ -29,9 +31,28 @@ const AverageImagePixels: NextPage = () => {
 		[selectedImage]
 	);
 
+	const handlePixelChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+		let newValue = parseInt(e.target.value);
+		setAveragePixel(newValue);
+		if (initData.current) {
+			initData.current.customInputs = initData.current.customInputs || {};
+			initData.current.customInputs.averagePixels = newValue;
+			render(initData.current);
+		}
+	};
+
 	return (
 		<Container padded>
 			<Flex center gap="1rem" stacked>
+				<WebGLCanvas onInit={init} fixedDimension={{ width: IMAGE_WIDTH, height: IMAGE_HEIGHT }}></WebGLCanvas>
+				<P center>
+					<input type="range" value={averagePixels} min={0} max={100} onChange={handlePixelChange} />
+					<br />
+					<span>
+						It averages the color of the {averagePixels} left &amp; {averagePixels} right pixels to draw
+						each pixel in the image.
+					</span>
+				</P>
 				<Flex gap="0.85rem">
 					{images.map((name) => {
 						return (
@@ -50,29 +71,6 @@ const AverageImagePixels: NextPage = () => {
 						);
 					})}
 				</Flex>
-				<WebGLCanvas onInit={init} fixedDimension={{ width: 700, height: 700 }}></WebGLCanvas>
-				<P center>
-					<input
-						type="range"
-						value={averagePixels}
-						min={0}
-						max={100}
-						onChange={(e) => {
-							let newValue = parseInt(e.target.value);
-							setAveragePixel(newValue);
-							if (initData.current) {
-								initData.current.customInputs = initData.current.customInputs || {};
-								initData.current.customInputs.averagePixels = newValue;
-								render(initData.current);
-							}
-						}}
-					/>
-					<br />
-					<span>
-						It averages the color of the {averagePixels} left &amp; {averagePixels} right pixels to draw
-						each pixel in the image.
-					</span>
-				</P>
 			</Flex>
 		</Container>
 	);
@@ -110,7 +108,7 @@ const Fragment = `
     varying vec2 v_textureCoord;
 
     void main(){
-        vec2 onePixel = (vec2(0.5, 0.5) / u_textureSize) * u_averagePixel;
+        vec2 onePixel = (vec2(1.0, 1.0) / u_textureSize) * u_averagePixel;
 
         gl_FragColor = (
             texture2D(u_image, v_textureCoord) +
@@ -136,7 +134,7 @@ const initWebGLProgram = (gl: WebGLRenderingContext, image: HTMLImageElement): W
 	// create buffers and upload vertex data
 	const positionBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-	setRectInBuffer(gl, { x: 0, y: 0, width: image.width, height: image.height });
+	setRectInBuffer(gl, { x: 0, y: 0, width: IMAGE_WIDTH, height: IMAGE_HEIGHT });
 
 	const textureCoordBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
