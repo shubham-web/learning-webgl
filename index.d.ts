@@ -45,3 +45,27 @@ type KernelMatrix3x3 = [
     number, number, number,
     number, number, number,
 ];
+
+type ImageKernelName =
+	| "normal"
+	| "gaussianBlur"
+	| "gaussianBlur2"
+	| "gaussianBlur3"
+	| "unsharpen"
+	| "sharpness"
+	| "sharpen"
+	| "edgeDetect"
+	| "edgeDetect2"
+	| "edgeDetect3"
+	| "edgeDetect4"
+	| "edgeDetect5"
+	| "edgeDetect6"
+	| "sobelHorizontal"
+	| "sobelVertical"
+	| "previtHorizontal"
+	| "previtVertical"
+	| "boxBlur"
+	| "triangleBlur"
+	| "emboss";
+
+type ImageKernels = { [key in ImageKernelName]: KernelMatrix3x3 };
