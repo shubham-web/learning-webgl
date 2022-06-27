@@ -50,7 +50,9 @@ const Home: NextPage = () => {
 								<NextLink href={`/practice/${item.folder}`} passHref>
 									<Title>{item.label}</Title>
 								</NextLink>
-								<DateAdded title={item.date}>{parsePracticeDate(item.date)}</DateAdded>
+								<DateAdded suppressHydrationWarning title={item.date}>
+									{parsePracticeDate(item.date)}
+								</DateAdded>
 								<NextLink href={`/practice/${item.folder}`} passHref>
 									<Button>Open</Button>
 								</NextLink>
