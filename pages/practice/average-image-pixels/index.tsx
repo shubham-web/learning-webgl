@@ -11,7 +11,7 @@ import styled, { css } from "styled-components";
 import ZeroLineHeight from "../../../components/common/ZeroLineHeight";
 
 const DEFAULT_AVERAGE_PIXEL = 0;
-const images = ["oranges.jpg", "lal-gate-dewas.jpg", "i-and-rohit.jpg", "school.jpg"];
+const images = ["taj.jpg", "oranges.jpg", "lal-gate-dewas.jpg", "i-and-rohit.jpg", "school.jpg"];
 const IMAGE_WIDTH = 600;
 const IMAGE_HEIGHT = 600;
 
