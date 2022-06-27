@@ -60,3 +60,8 @@ export const resizeCanvasToDisplaySize = (canvas: HTMLCanvasElement, multiplier?
 	}
 	return false;
 };
+
+export const computeKernelWeight = (matrix: KernelMatrix3x3) => {
+	let sum = matrix.reduce((prev, current) => current + prev);
+	return sum <= 0 ? 1 : sum;
+};

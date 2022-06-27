@@ -38,3 +38,10 @@ interface WebGLProgramInitData {
 		[key: string]: any;
 	};
 }
+
+// prettier-ignore
+type KernelMatrix3x3 = [
+    number, number, number,
+    number, number, number,
+    number, number, number,
+];
