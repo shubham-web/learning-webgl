@@ -9,11 +9,11 @@ const Footer: React.FC = () => {
 		<Wrapper>
 			<Title>
 				Made for Fun by &nbsp;
-				<a href="https://shubhamprajapat.com/">Shubham Prajapat</a>
+				<a href="https://shubhamp.dev/">Shubham Prajapat</a>
 			</Title>
 			<Flex center gap="1rem">
 				<ZeroLineHeight>
-					<a href="https://twitter.com/shubhamp_web">Follow @shubhamp_web on Twitter</a>
+					<a href="https://x.com/shubhamp_web">Follow @shubhamp_web on X</a>
 				</ZeroLineHeight>
 			</Flex>
 		</Wrapper>
